@@ -47,11 +47,9 @@ module RuboCop
         formatter.started(nil)
 
         violations.map do |violation|
-          offenses = violation.offenses
-          offenses = offenses.reject(&:disabled?) if offenses.first.respond_to?(:disabled?)
           formatter.file_finished(
             violation.filename,
-            offenses.compact.sort.freeze
+            violation.offenses.compact.sort.freeze
           )
         end
 

@@ -17,7 +17,9 @@ class StyleChecker
     end
 
     file_violations.select do |file_violation|
-      file_violation.offenses.any?
+      offenses = file_violation.offenses
+      offenses.reject!(&:disabled?) if offenses.first.respond_to?(:disabled?)
+      offenses.any?
     end
   end
 
